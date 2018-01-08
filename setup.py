@@ -3,6 +3,11 @@
 import os
 import re
 
+path_to_token = input("Path to token: ")
+#token = path_to_token
+with open('{path_to_token}'.format(path_to_token=path_to_token), 'r') as f:
+    token = f.read().rsplit()[0]
+print(token)
 
 scheme                   = 'https'
 authority                = 'api.digitalocean.com'
@@ -12,7 +17,7 @@ endpoint                 = '{scheme}://{authority}{path}'.format(
                                 path = path,
                                 authority = authority,
                                 )
-token                    = 'smoken'
+#token                    = 'smoken'
 data                     = 'sata'
 
 # FIXME - Format the following string
