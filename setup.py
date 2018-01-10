@@ -4,7 +4,6 @@ import os
 import re
 
 path_to_token = '/Users/rodrigocoelho/.pat/.digitalocean'
-#token = path_to_token
 with open('{path_to_token}'.format(path_to_token=path_to_token), 'r') as f:
     token = f.read().rsplit()[0]
 
@@ -16,17 +15,17 @@ endpoint                 = '{scheme}://{authority}{path}'.format(
                                 path = path,
                                 authority = authority,
                                 )
-#token                    = 'smoken'
-data                     = 'sata'
 
-# FIXME - Format the following string
+data                     = '{"name": "newchain","region": "nyc3","size": "512mb","image": "ubuntu-16-04-x64","ssh_keys": ["17337718"],"backups": false,"ipv6": false,"user_data": null,"private_networking": null,"volumes": null,"tags": ["tagtest"]}'
+
 create_droplet_command = "curl -X POST -d \'{data}\'                            \
                             -H \"Authentication: Bearer {token}\"               \
                             -H \"Content-Type: application/json\"               \
                              \"{endpoint}\"".format(data = data,
                                                 token = token,
                                                 endpoint = endpoint)
-print(re.sub(' +', ' ', create_droplet_command))
+os.system(create_droplet_command)
+#print(re.sub(' +', ' ', create_droplet_command))
 #os.system(create_droplet_command)
 
 # Then, we need to wait fot the droplet to be created
@@ -41,3 +40,6 @@ print(re.sub(' +', ' ', create_droplet_command))
 
 # if __name__ == "__main__":
 #     token = '/Users/rodrigocoelho/.pat/.digitalocean'
+
+# ssh key ID num
+#curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer d902bef3397deb0a587ee028b75c587019790924046767a3227fb435bd01131e" "https://api.digitalocean.com/v2/account/keys"
