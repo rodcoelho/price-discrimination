@@ -3,11 +3,10 @@
 import os
 import re
 
-path_to_token = input("Path to token: ")
+path_to_token = '/Users/rodrigocoelho/.pat/.digitalocean'
 #token = path_to_token
 with open('{path_to_token}'.format(path_to_token=path_to_token), 'r') as f:
     token = f.read().rsplit()[0]
-print(token)
 
 scheme                   = 'https'
 authority                = 'api.digitalocean.com'
@@ -39,3 +38,6 @@ print(re.sub(' +', ' ', create_droplet_command))
 # Finally, we need to clone our dotfiles to the droplet
 #host =
 #os.system('ssh -o "StrictHostKeyChecking no" root@{host}\'bash -s\' < dotfiles/run.sh'.format(host=host)')
+
+# if __name__ == "__main__":
+#     token = '/Users/rodrigocoelho/.pat/.digitalocean'
