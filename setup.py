@@ -40,6 +40,3 @@ os.system(create_droplet_command)
 
 # if __name__ == "__main__":
 #     token = '/Users/rodrigocoelho/.pat/.digitalocean'
-
-# ssh key ID num
-#curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer d902bef3397deb0a587ee028b75c587019790924046767a3227fb435bd01131e" "https://api.digitalocean.com/v2/account/keys"
