@@ -25,6 +25,7 @@ create_droplet_command = "curl -X POST -d \'{data}\'                            
                                                 token = token,
                                                 endpoint = endpoint)
 os.system(create_droplet_command)
+
 #print(re.sub(' +', ' ', create_droplet_command))
 #os.system(create_droplet_command)
 
