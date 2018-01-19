@@ -15,7 +15,7 @@ endpoint                 = '{scheme}://{authority}{path}{query_string}'.format(
                                 path = path,
                                 authority = authority,
                                 query_string=query_string)
-token                    = 'smoken'
+token                    = open('/Users/{username}/.pat/.digitalocean'.format(username=('rodrigocoelho'))).read()
 
 teardown_droplet_command = "curl -X DETETE\                                     \
                             -H \"Content-Type: application/json\"               \
@@ -25,4 +25,5 @@ teardown_droplet_command = "curl -X DETETE\                                     
                                                 endpoint = endpoint)
 teardown_droplet_command = (re.sub(' +',' ', teardown_droplet_command))
 
-print(teardown_droplet_command)
+#os.system(teardown_droplet_command)
+# FIXME need to make sure spacing is correct before teardown will work successfully

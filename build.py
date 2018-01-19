@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 
-import json
-import os
-import re
-import sys
-import time
-
+import json, os, re, sys, time
 
 def create_digital_ocean_vps():
     endpoint = 'https://api.digitalocean.com/v2/droplets'
