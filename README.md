@@ -22,3 +22,6 @@ Ex2: `python3 build.py 3` Builds 3 virtual private servers
 
 `teardown.py` is not production ready. For the time being you will need to log into your digitalocean account and 
 manually destroy the clusters you have created. 
+
+
+####
