@@ -7,10 +7,10 @@ def create_digital_ocean_vps():
     hostname = 'node'
     payload = {}
     pat_path = '/Users/{username}/.pat/.digitalocean'.format(username=('rodrigocoelho'))
-    mac_pa_token = open('{pat_path}'.format(pat_path=pat_path)).read().strip
+    mac_pa_token = open('{pat_path}'.format(pat_path=pat_path)).read()
     a_header = 'Authorization: Bearer {mac_pa_token}'.format(mac_pa_token=mac_pa_token)
     c_header = 'Content-Type: application/json'
-    vm_count = int(input('How many VMs do you want to spin up?'))
+    vm_count = int(input('How many VMs do you want to spin up? '))
     if vm_count < 1:
         print("ERROR: You cannot spin up less than one server")
         create_digital_ocean_vps()
@@ -24,21 +24,12 @@ def create_digital_ocean_vps():
     headers = {}
     headers['Authorization'] = 'Bearer {mac_pa_token}'.format(mac_pa_token=mac_pa_token)
     headers['Content-Type'] = 'application/json'
-    keys = json.loads(requests.get('https://api.digitalocean.com/v2/account/keys', headers=headers).text)['ssh_keys']
-    payload['ssh_keys'] = [str(key['id']) for key in keys if key['name'] == socket.gethostname()]
-    # payload['ssh_keys'] = ['{ssh_key_id}'.format(ssh_key_id=17337718)] #FIXME
+    # keys = json.loads(requests.get('https://api.digitalocean.com/v2/account/keys', headers=headers).text)['ssh_keys']
+    # payload['ssh_keys'] = [str(key['id']) for key in keys if key['name'] == socket.gethostname()]
+    payload['ssh_keys'] = ['{ssh_key_id}'.format(ssh_key_id=17337718)] #FIXME
     payload['tags'] = ['test']
-    # FIXME might be causing issue
-    # FIXME might be causing issue
-    # FIXME might be causing issue BELOW
-    endstate = 'curl -X POST "{endpoint}"              \
-                -d \'{api_data}\'                      \
-                -H "{a_header}"                        \
-                -H "{c_header}"'                       \
-                .format(endpoint=endpoint,
-                        api_data=json.dumps(payload),
-                        a_header=a_header.strip(),
-                        c_header=c_header)
+    endstate = 'curl -X POST "{endpoint}" -d {x}{api_data}{x} -H "{a_header}" -H "{c_header}"'.format(endpoint=endpoint,x = "'",api_data=json.dumps(payload),a_header=a_header.strip(),c_header=c_header)
+    print(endstate)
     return re.sub(' +', ' ', endstate)
 
 def build_single_vps():

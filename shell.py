@@ -23,6 +23,7 @@ def spin_up():
 
 def harden(writeout_file):
     response = json.load(open(writeout_file))
+    print(response)
     payloads = []
     if 'droplets' in response:
         payloads = response['droplets']
