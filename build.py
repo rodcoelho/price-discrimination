@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import json, os, re, sys, time
+import json, os, re, sys, time, socket, requests
 
 def create_digital_ocean_vps():
     endpoint = 'https://api.digitalocean.com/v2/droplets'
@@ -9,8 +9,11 @@ def create_digital_ocean_vps():
     mac_pa_token = open('/Users/{username}/.pat/.digitalocean'.format(username=('rodrigocoelho'))).read() #FIXME
     a_header = 'Authorization: Bearer {pa_token}'.format(pa_token=mac_pa_token)
     c_header = 'Content-Type: application/json'
-    vm_count = 1
-    if vm_count < 2:
+    vm_count = int(input('How many VPSs do you want to spin up?'))
+    if vm_count < 1:
+        print("ERROR: You cannot spin up less than one server")
+        create_digital_ocean_vps()
+    elif vm_count <2:
         api_data['name'] = hostname
     else:
         api_data['names'] = ['{hostname} {_}'
@@ -53,8 +56,10 @@ def build_single_vps():
 
 def get_host(droplet_id, writeout_file):
     pa_token = open('/Users/rodrigocoelho/.pat/.digitalocean').read()
-    os.system('curl -X GET "https://api.digitalocean.com/v2/droplets/{droplet_id} -H "Content-Type: application/json" -H "Authorization: Bearer {pa_token}" > {writeout_file}'.format(droplet_id=droplet_id,pa_token=pa_token,writeout_file=writeout_file))
-    payload = json.load(open(writeout_file))
+    writeout_file_i = writeout_file.split('.')[0] + writeout_file.split('.')[1] + '-' + str(droplet_id) + '.json'
+    print(writeout_file_i)
+    os.system('curl -X GET "https://api.digitalocean.com/v2/droplets/{droplet_id} -H "Content-Type: application/json" -H "Authorization: Bearer {pa_token}" > {writeout_file_i}'.format(droplet_id=droplet_id,pa_token=pa_token,writeout_file_i=writeout_file_i))
+    payload = json.load(open(writeout_file_i))
     ip_address = payload['droplet']['networks']['v4'][0]['ip_address']
     return ip_address
 

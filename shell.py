@@ -14,13 +14,13 @@ def spin_up():
             pass
         elif vendor_choice in digital_ocean:
             os.system('{unix_command} > {writeout_file}'.format(unix_command=build.create_digital_ocean_vps(),writeout_file=writeout_file))
+            time.sleep(60) # Note: waiting for droplets to spin up so that IP Addresses are provisioned and ready
             return harden(writeout_file)
     else:
         pass
 
 def harden(writeout_file):
     response = json.load(open(writeout_file))
-
     payloads = []
     if 'droplets' in response:
         payloads = response['droplets']
@@ -29,7 +29,7 @@ def harden(writeout_file):
     ip_addresses = []
     for payload in payloads:
         ip_addresses.append(build.get_host(payload['id'], writeout_file))
-
+    return ip_addresses
 
 if __name__ == '__main__':
     pprint(spin_up())
