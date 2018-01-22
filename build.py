@@ -51,5 +51,12 @@ def build_single_vps():
     else:
         pass # FIXME
 
+def get_host(droplet_id, writeout_file):
+    pa_token = open('/Users/rodrigocoelho/.pat/.digitalocean').read()
+    os.system('curl -X GET "https://api.digitalocean.com/v2/droplets/{droplet_id} -H "Content-Type: application/json" -H "Authorization: Bearer {pa_token}" > {writeout_file}'.format(droplet_id=droplet_id,pa_token=pa_token,writeout_file=writeout_file))
+    payload = json.load(open(writeout_file))
+    ip_address = payload['droplet']['networks']['v4'][0]['ip_address']
+    return ip_address
+
 if __name__ == '__main__':
     build_single_vps()

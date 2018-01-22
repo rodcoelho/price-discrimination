@@ -1,5 +1,6 @@
 import time, json, sys, os
-from wrappers import digitalocean
+import build
+from pprint import pprint
 
 def spin_up():
     timestamp_utc = time.time()
@@ -12,20 +13,23 @@ def spin_up():
         if vendor_choice in aws_lightsail:
             pass
         elif vendor_choice in digital_ocean:
-            os.system('{unix_command} > {writeout_file}'.format(unix_command=digitalocean.builder(),writeout_file=writeout_file))
-            return writeout_file
+            os.system('{unix_command} > {writeout_file}'.format(unix_command=build.create_digital_ocean_vps(),writeout_file=writeout_file))
+            return harden(writeout_file)
     else:
         pass
 
 def harden(writeout_file):
     response = json.load(open(writeout_file))
-    #FIXME assignment below reults in a KeyError
-    if 'droplets' in response:
-        ids = response['droplets']
 
-    y = response['droplet']['id']
-    timestamp_utc =
-    c = digitalocean.get_ip_address(y, timestamp_utc)
+    payloads = []
+    if 'droplets' in response:
+        payloads = response['droplets']
+    else:
+        payloads = [response['droplet']]
+    ip_addresses = []
+    for payload in payloads:
+        ip_addresses.append(build.get_host(payload['id'], writeout_file))
+
 
 if __name__ == '__main__':
-    harden(spin_up())
+    pprint(spin_up())
