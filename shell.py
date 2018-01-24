@@ -24,7 +24,6 @@ def spin_up():
 def harden(writeout_file):
     response = json.load(open(writeout_file))
     print(response)
-    payloads = []
     if 'droplets' in response:
         payloads = response['droplets']
     else:
@@ -32,18 +31,19 @@ def harden(writeout_file):
     ip_addresses = []
     for payload in payloads:
         ip_addresses.append(build.get_host(payload['id'], writeout_file))
-    # for ip_address in ip_addresses:
-    #     os.system('ssh -o "StrictHostKeyChecking no" root@{ip_address} \'bash -s\' < procedures/remote0.sh'.format(
-    #         ip_address=ip_address))
-    #     os.system('ssh -o "StrictHostKeyChecking no" root@{ip_address} \'bash -s\' < procedures/remote1.sh'.format(
-    #         ip_address=ip_address))
-    #     os.system('scp /home/kenso/.ssh/id_rsa.pub root@{ip_address}:/etc/ssh/kensotrabing/authorized_keys'.format(
-    #         ip_address=ip_address))
-    #     os.system('sh -c \'echo "kensotrabing:$w0rdf!$H" > /home/kenso/dotfiles/setup/.credentials\'')
-    #     os.system('scp /home/kenso/dotfiles/setup/.credentials root@{ip_address}:/home/kensotrabing/'.format(
-    #         ip_address=ip_address))
-    #     os.system('ssh -o "StrictHostKeyChecking no" root@{ip_address} \'bash -s\' < procedures/remote2.sh'.format(
-    #         ip_address=ip_address))
+    for ip_address in ip_addresses:
+        os.system('ssh -o "StrictHostKeyChecking no" root@{ip_address} \'bash -s\' < procedures/remote0.sh'.format(
+            ip_address=ip_address))
+        os.system('ssh -o "StrictHostKeyChecking no" root@{ip_address} \'bash -s\' < procedures/remote1.sh'.format(
+            ip_address=ip_address))
+        os.system('scp /home/kenso/.ssh/id_rsa.pub root@{ip_address}:/etc/ssh/rodrigocoelho/authorized_keys'.format(
+            ip_address=ip_address))
+        os.system('sh -c \'echo "rodrigocoelho:swordfish" > /home/kenso/dotfiles/setup/.credentials\'')
+        os.system('scp /home/kenso/dotfiles/setup/.credentials root@{ip_address}:/home/kensotrabing/'.format(
+            ip_address=ip_address))
+        os.system('ssh -o "StrictHostKeyChecking no" root@{ip_address} \'bash -s\' < procedures/remote2.sh'.format(
+            ip_address=ip_address))
+    os.system('rm /Users/{username}/projects/dotfiles/setup/.credentials')
     return ip_addresses
 
 if __name__ == '__main__':

@@ -29,7 +29,7 @@ def create_digital_ocean_vps():
     payload['ssh_keys'] = ['{ssh_key_id}'.format(ssh_key_id=17337718)] #FIXME
     payload['tags'] = ['test']
     endstate = 'curl -X POST "{endpoint}" -d {x}{api_data}{x} -H "{a_header}" -H "{c_header}"'.format(endpoint=endpoint,x = "'",api_data=json.dumps(payload),a_header=a_header.strip(),c_header=c_header)
-    print(endstate)
+    # print(endstate)
     return re.sub(' +', ' ', endstate)
 
 def build_single_vps():
@@ -51,13 +51,39 @@ def build_single_vps():
         pass # FIXME
 
 def get_host(droplet_id, writeout_file):
-    pa_token = open('/Users/rodrigocoelho/.pat/.digitalocean').read()
+    print(droplet_id)
+    print(writeout_file)
+    pat_path = '/Users/{username}/.pat/.digitalocean'.format(username=('rodrigocoelho'))
+    mac_pa_token = open('{pat_path}'.format(pat_path=pat_path)).read()
     #writeout_file_i = writeout_file.split('.')[0] + writeout_file.split('.')[1] + '-' + str(droplet_id) + '.json'
     writeout_file_i = writeout_file.split('.')[0] + writeout_file.split('.')[1] + '-' + str(droplet_id) + '.json'
-    os.system('curl -X GET "https://api.digitalocean.com/v2/droplets/{droplet_id}" -H "Content-Type: application/json" -H "Authorization: Bearer {pa_token}" > {writeout_file_i}'.format(droplet_id=droplet_id,pa_token=pa_token,writeout_file_i=writeout_file_i))
+    os.system('curl -X GET "https://api.digitalocean.com/v2/droplets/{droplet_id}" -H "Content-Type: application/json" -H "Authorization: Bearer {mac_pa_token}" > {writeout_file_i}'.format(droplet_id=droplet_id,mac_pa_token=mac_pa_token,writeout_file_i=writeout_file_i))
     payload = json.load(open(writeout_file_i))
     ip_address = payload['droplet']['networks']['v4'][0]['ip_address']
     return ip_address
 
 if __name__ == '__main__':
     build_single_vps()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
