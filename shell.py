@@ -2,7 +2,7 @@
 
 import time, json, sys, os
 from pprint import pprint
-import build
+import digitalocean
 
 def spin_up():
     timestamp_utc = time.time()
@@ -10,41 +10,37 @@ def spin_up():
     aws_lightsail = ['awsl', 'aws lightsail']
     digital_ocean = ['do', 'digital ocean']
     iaas_platform = aws_lightsail + digital_ocean
+    # vendor_choice = input('vendor_choice: ')
     vendor_choice = 'do'
     if vendor_choice in iaas_platform:
         if vendor_choice in aws_lightsail:
-            pass # FIXME include option for AWS Lightsail
+            pass
         elif vendor_choice in digital_ocean:
-            os.system('{unix_command} > {writeout_file}'.format(unix_command=build.create_digital_ocean_vps(),writeout_file=writeout_file))
-            time.sleep(60) # Note: waiting for droplets to spin up so that IP Addresses are provisioned and ready
+            os.system('{unix_command} > {writeout_file}'             \
+                        .format(unix_command=digitalocean.builder(), \
+                                writeout_file=writeout_file))
+            time.sleep(60)
             return harden(writeout_file)
     else:
-        pass #FIXME error handler goes here
+        pass # TODO 2
 
 def harden(writeout_file):
     response = json.load(open(writeout_file))
-    print(response)
     if 'droplets' in response:
         payloads = response['droplets']
     else:
         payloads = [response['droplet']]
     ip_addresses = []
     for payload in payloads:
-        ip_addresses.append(build.get_host(payload['id'], writeout_file))
+        ip_addresses.append(digitalocean.get_host(payload['id'], writeout_file))
     for ip_address in ip_addresses:
-        os.system('ssh -o "StrictHostKeyChecking no" root@{ip_address} \'bash -s\' < procedures/remote0.sh'.format(
-            ip_address=ip_address))
-        os.system('ssh -o "StrictHostKeyChecking no" root@{ip_address} \'bash -s\' < procedures/remote1.sh'.format(
-            ip_address=ip_address))
-        os.system('scp /home/kenso/.ssh/id_rsa.pub root@{ip_address}:/etc/ssh/rodrigocoelho/authorized_keys'.format(
-            ip_address=ip_address))
-        os.system('sh -c \'echo "rodrigocoelho:swordfish" > /home/kenso/dotfiles/setup/.credentials\'')
-        os.system('scp /home/kenso/dotfiles/setup/.credentials root@{ip_address}:/home/kensotrabing/'.format(
-            ip_address=ip_address))
-        os.system('ssh -o "StrictHostKeyChecking no" root@{ip_address} \'bash -s\' < procedures/remote2.sh'.format(
-            ip_address=ip_address))
-    os.system('rm /Users/{username}/projects/dotfiles/setup/.credentials')
+        os.system('ssh -o "StrictHostKeyChecking no" root@{ip_address} \'bash -s\' < procedures/remote0.sh'.format(ip_address=ip_address))
+        os.system('scp /Users/rodrigocoelho/.ssh/id_rsa.pub root@{ip_address}:/etc/ssh/rodrigocoelho/authorized_keys'.format(ip_address=ip_address))
+        os.system('sh -c \'echo "rodrigocoelho:swordfish" > /Users/rodrigocoelho/dotfiles/setup/.credentials\'')
+        os.system('scp /Users/rodrigocoelho/projects/dotfiles/setup/.credentials root@{ip_address}:/home/rodrigocoelho/'.format(ip_address=ip_address))
+        os.system('ssh -o "StrictHostKeyChecking no" root@{ip_address} \'bash -s\' < procedures/remote1.sh'.format(ip_address=ip_address))
     return ip_addresses
+
 
 if __name__ == '__main__':
     pprint(spin_up())
