@@ -3,7 +3,7 @@
 import os
 import re
 
-path_to_token = '/Users/rodrigocoelho/.pat/.digitalocean'
+path_to_token = '/Users/jimmy/.pat/.digitalocean'
 with open('{path_to_token}'.format(path_to_token=path_to_token), 'r') as f:
     token = f.read().rsplit()[0]
 
@@ -40,4 +40,4 @@ os.system(create_droplet_command)
 #os.system('ssh -o "StrictHostKeyChecking no" root@{host}\'bash -s\' < dotfiles/run.sh'.format(host=host)')
 
 # if __name__ == "__main__":
-#     token = '/Users/rodrigocoelho/.pat/.digitalocean'
+#     token = '/Users/jimmy/.pat/.digitalocean'

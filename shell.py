@@ -35,9 +35,9 @@ def harden(writeout_file):
         ip_addresses.append(digitalocean.get_host(payload['id'], writeout_file))
     for ip_address in ip_addresses:
         os.system('ssh -o "StrictHostKeyChecking no" root@{ip_address} \'bash -s\' < procedures/remote0.sh'.format(ip_address=ip_address))
-        os.system('scp /Users/rodrigocoelho/.ssh/id_rsa.pub root@{ip_address}:/etc/ssh/rodrigocoelho/authorized_keys'.format(ip_address=ip_address))
-        os.system('sh -c \'echo "rodrigocoelho:swordfish" > /Users/rodrigocoelho/dotfiles/setup/.credentials\'')
-        os.system('scp /Users/rodrigocoelho/projects/dotfiles/setup/.credentials root@{ip_address}:/home/rodrigocoelho/'.format(ip_address=ip_address))
+        os.system('scp /Users/jimmy/.ssh/id_rsa.pub root@{ip_address}:/etc/ssh/jimmy/authorized_keys'.format(ip_address=ip_address))
+        os.system('sh -c \'echo "jimmy:swordfish" > /Users/jimmy/dotfiles/setup/.credentials\'')
+        os.system('scp /Users/jimmy/projects/dotfiles/setup/.credentials root@{ip_address}:/home/jimmy/'.format(ip_address=ip_address))
         os.system('ssh -o "StrictHostKeyChecking no" root@{ip_address} \'bash -s\' < procedures/remote1.sh'.format(ip_address=ip_address))
     return ip_addresses
 

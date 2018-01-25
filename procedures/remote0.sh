@@ -6,10 +6,10 @@ sh -c 'echo "set tabsize 4" >> .nanorc'
 
 sh -c 'echo "set tabstospaces" >> .nanorc'
 
-adduser --disabled-password --gecos "" rodrigocoelho
+adduser --disabled-password --gecos "" jimmy
 
-usermod -aG sudo rodrigocoelho
+usermod -aG sudo jimmy
 
-cp .nanorc /home/rodrigocoelho/
+cp .nanorc /home/jimmy/
 
-mkdir -p /etc/ssh/rodrigocoelho
+mkdir -p /etc/ssh/jimmy

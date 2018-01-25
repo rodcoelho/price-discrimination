@@ -6,7 +6,7 @@ def create_digital_ocean_vps():
     endpoint = 'https://api.digitalocean.com/v2/droplets'
     hostname = 'node'
     payload = {}
-    pat_path = '/Users/{username}/.pat/.digitalocean'.format(username=('rodrigocoelho'))
+    pat_path = '/Users/{username}/.pat/.digitalocean'.format(username=('jimmy'))
     mac_pa_token = open('{pat_path}'.format(pat_path=pat_path)).read()
     a_header = 'Authorization: Bearer {mac_pa_token}'.format(mac_pa_token=mac_pa_token)
     c_header = 'Content-Type: application/json'
@@ -53,7 +53,7 @@ def build_single_vps():
 def get_host(droplet_id, writeout_file):
     print(droplet_id)
     print(writeout_file)
-    pat_path = '/Users/{username}/.pat/.digitalocean'.format(username=('rodrigocoelho'))
+    pat_path = '/Users/{username}/.pat/.digitalocean'.format(username=('jimmy'))
     mac_pa_token = open('{pat_path}'.format(pat_path=pat_path)).read()
     #writeout_file_i = writeout_file.split('.')[0] + writeout_file.split('.')[1] + '-' + str(droplet_id) + '.json'
     writeout_file_i = writeout_file.split('.')[0] + writeout_file.split('.')[1] + '-' + str(droplet_id) + '.json'

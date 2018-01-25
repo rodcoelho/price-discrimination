@@ -15,7 +15,7 @@ endpoint                 = '{scheme}://{authority}{path}{query_string}'.format(
                                 path = path,
                                 authority = authority,
                                 query_string=query_string)
-token                    = open('/Users/{username}/.pat/.digitalocean'.format(username=('rodrigocoelho'))).read()
+token                    = open('/Users/{username}/.pat/.digitalocean'.format(username=('jimmy'))).read()
 
 teardown_droplet_command = "curl -X DETETE\                                     \
                             -H \"Content-Type: application/json\"               \

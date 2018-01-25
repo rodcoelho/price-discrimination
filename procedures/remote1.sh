@@ -18,13 +18,13 @@ pip3 install jupyter matplotlib numpy pandas
 ### Configuration - Change ownership, no longer allowing root login, basically closing all 'gates'
 ###
 
-chown -R rodrigocoelho:rodrigocoelho /etc/ssh/rodrigocoelho
+chown -R jimmy:jimmy /etc/ssh/jimmy
 
-chmod 755 /etc/ssh/rodrigocoelho
+chmod 755 /etc/ssh/jimmy
 
-chmod 644 /etc/ssh/rodrigocoelho/authorized_keys
+chmod 644 /etc/ssh/jimmy/authorized_keys
 
-sed -i -e '/^#AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile \/etc\/ssh\/rodrigocoelho\/authorized_keys/' /etc/ssh/sshd_config
+sed -i -e '/^#AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile \/etc\/ssh\/jimmy\/authorized_keys/' /etc/ssh/sshd_config
 
 sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
 
@@ -34,7 +34,7 @@ sh -c 'echo "" >> /etc/ssh/sshd_config'
 
 sh -c 'echo "" >> /etc/ssh/sshd_config'
 
-sh -c 'echo "AllowUsers rodrigocoelho" >> /etc/ssh/sshd_config'
+sh -c 'echo "AllowUsers jimmy" >> /etc/ssh/sshd_config'
 
 ###
 ### Safety settings - Firewall, safe ports
@@ -321,6 +321,6 @@ sh -c 'echo "enabled = true" >> /etc/fail2ban/jail.local'
 
 systemctl restart fail2ban
 
-cat /home/rodrigocoelho/.credentials | chpasswd
+cat /home/jimmy/.credentials | chpasswd
 
-rm /home/rodrigocoelho/.credentials
+rm /home/jimmy/.credentials

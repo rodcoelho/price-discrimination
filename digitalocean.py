@@ -11,7 +11,7 @@ def builder():
     endpoint = 'https://api.digitalocean.com/v2/droplets'
     hostname = 'node'
     payload = {}
-    pat_path = '/Users/rodrigocoelho/.pat/.digitalocean'
+    pat_path = '/Users/jimmy/.pat/.digitalocean'
     pa_token = open('{pat_path}'.format(pat_path=pat_path)).read().strip()
     a_header = 'Authorization: Bearer {pa_token}'.format(pa_token=pa_token)
     c_header = 'Content-Type: application/json'
@@ -48,7 +48,7 @@ def builder():
     return re.sub(' +', ' ', endstate)     # TODO 2
 
 def get_host(droplet_id, writeout_file):
-    pat_path = '/Users/rodrigocoelho/.pat/.digitalocean'
+    pat_path = '/Users/jimmy/.pat/.digitalocean'
     pa_token = open('{pat_path}'.format(pat_path=pat_path)).read().strip()
     writeout_file_i = writeout_file.split('.')[0]     \
                         + writeout_file.split('.')[1] \
