@@ -3,14 +3,15 @@
 import os
 import json
 import credentials
+access_id = credentials.aws_access_key['AWS Access Key ID']
+access_key = credentials.aws_access_key['AWS Secret Access Key']
+
 
 regions = {'us-east-1': 'ami-43a15f3e',
            'us-east-2': 'ami-916f59f4',
            'us-west-1': 'ami-925144f2',
            'us-west-2': 'ami-4e79ed36'}
 
-access_id = credentials.aws_access_key['AWS Access Key ID']
-access_key = credentials.aws_access_key['AWS Secret Access Key']
 
 # spin up ec2 instance
 for region, image_id in regions.items():
