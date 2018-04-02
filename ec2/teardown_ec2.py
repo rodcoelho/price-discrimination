@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 import os, json
-import credentials
+from credentials import credential
 
-access_id = credentials.aws_access_key['AWS Access Key ID']
-access_key = credentials.aws_access_key['AWS Secret Access Key']
+access_id = credential.aws_access_key['AWS Access Key ID']
+access_key = credential.aws_access_key['AWS Secret Access Key']
 
 dir_location = "/Users/rodrigocoelho/projects/final-project/worker-nodes/ec2/tmp"
 dir = os.listdir(dir_location)
@@ -25,3 +25,7 @@ for item in dir:
             print("Error reading Json OR no file exists")
 
 os.system("rm tmp/us*")
+
+# NEXT... rather than teardown, we can simply stop instance and start again which will change our IP address for us
+# aws ec2 stop-instances --instance-ids <value>
+

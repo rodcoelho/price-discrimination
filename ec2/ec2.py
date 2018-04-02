@@ -2,9 +2,9 @@
 
 import os
 import json
-import credentials
-access_id = credentials.aws_access_key['AWS Access Key ID']
-access_key = credentials.aws_access_key['AWS Secret Access Key']
+from credentials import credential
+access_id = credential.aws_access_key['AWS Access Key ID']
+access_key = credential.aws_access_key['AWS Secret Access Key']
 
 
 regions = {'us-east-1': 'ami-43a15f3e',
