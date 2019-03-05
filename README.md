@@ -6,7 +6,7 @@ Dotfile that spins up and configures virtual machines in different geographic lo
 
 In the `data` directory you will find a `graphs` directory with some output from the project.
 
-Here is a little preview:
+Here is a preview of what the output will look like:
 
 <img width="601" alt="screen shot 2018-05-03 at 12 41 44 pm" src="https://user-images.githubusercontent.com/15854694/39591102-b9aa764e-4ed0-11e8-8561-50d5553e017f.png">
 
